@@ -18,8 +18,13 @@ class LaraLandingServiceProvider extends PackageServiceProvider
         $package
             ->name('lara-landing')
             ->hasConfigFile()
-            ->hasViews()
-            ->hasMigration('create_lara_landing_table')
-            ->hasCommand(LaraLandingCommand::class);
+            ->hasViews('lara-landing')
+            ->hasMigrations([
+                "2025_06_06_123546_create_landing_pages_table",
+                "2025_06_06_123701_create_landing_sections_table",
+                "2025_06_12_080041_change_content_from_json_to_string_in_landing_sections_table",
+            ])
+            ->hasCommand(LaraLandingCommand::class)
+            ->hasRoute('web');
     }
 }
