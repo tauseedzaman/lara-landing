@@ -16,7 +16,7 @@ class ServeLandingPage
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $path = '/' . ltrim($request->path(), '/'); // normalize path (ensure it starts with /)
+        $path = '/'.ltrim($request->path(), '/'); // normalize path (ensure it starts with /)
         // Match by slug
         $landingPage = LandingPage::where('slug', $path)
             ->where('status', 'published')

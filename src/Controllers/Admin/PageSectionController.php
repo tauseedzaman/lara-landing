@@ -15,12 +15,14 @@ class PageSectionController extends Controller
     {
         $page = LandingPage::findOrFail($id);
         $sections = LandingSection::where('landing_page_id', $page->id)->latest()->paginate(15);
+
         return view('lara-landing.admin.sections.index', compact('sections', 'page'));
     }
 
     public function create($id)
     {
         $page = LandingPage::findOrFail($id);
+
         return view('lara-landing.admin.sections.create', compact('page'));
     }
 
@@ -102,7 +104,7 @@ class PageSectionController extends Controller
         } catch (\Exception $e) {
             return back()
                 ->withInput()
-                ->with('error', 'Error updating section: ' . $e->getMessage());
+                ->with('error', 'Error updating section: '.$e->getMessage());
         }
     }
 
@@ -142,13 +144,12 @@ class PageSectionController extends Controller
             return response()->json(['success' => true]);
         } catch (\Exception $e) {
             DB::rollBack();
+
             return response()->json([
                 'success' => false,
                 'message' => 'Reordering failed.',
-                'error' => $e->getMessage()
+                'error' => $e->getMessage(),
             ], 500);
         }
     }
-
-
 }

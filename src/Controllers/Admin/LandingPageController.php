@@ -11,6 +11,7 @@ class LandingPageController extends Controller
     public function index()
     {
         $pages = LandingPage::latest()->paginate(15);
+
         return view('lara-landing.admin.index', compact('pages'));
     }
 
@@ -18,6 +19,7 @@ class LandingPageController extends Controller
     {
         return view('lara-landing.admin.create');
     }
+
     public function store(Request $request)
     {
         // Validate the request data
@@ -70,14 +72,16 @@ class LandingPageController extends Controller
     public function edit($id)
     {
         $page = LandingPage::findOrFail($id);
+
         return view('lara-landing.admin.edit', compact('page'));
     }
 
-    public function update(Request $request, LandingPage $landingPage){
+    public function update(Request $request, LandingPage $landingPage)
+    {
         // Validate the request data
         $validated = $request->validate([
             'title' => 'required|string|max:255',
-            'slug' => 'nullable|string|max:255|unique:landing_pages,slug,' . $landingPage->id,
+            'slug' => 'nullable|string|max:255|unique:landing_pages,slug,'.$landingPage->id,
             'status' => 'required|in:draft,published',
             'meta_title' => 'nullable|string|max:255',
             'meta_description' => 'nullable|string|max:500',
